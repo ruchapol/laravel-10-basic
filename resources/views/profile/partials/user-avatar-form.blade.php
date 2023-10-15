@@ -10,7 +10,9 @@
         </p>
     </header>
 
-    <form method="post" action="/profile/avatar">
+    <form method="post" action="{{route('profile.avatar')}}">
+        @method('patch')
+        @csrf
         <div>
             <x-input-label for="avatar" :value="__('Avatar')" />
             <x-text-input id="avatar" name="avatar" type="file" class="mt-1 block w-full" :value="old('name', $user->avatar)" required autofocus autocomplete="avatar" />
