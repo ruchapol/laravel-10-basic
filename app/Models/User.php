@@ -17,11 +17,21 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    // needed to add field here to let the model
+    // update this value
     protected $fillable = [
         'name',
         'email',
         'password',
+        'avatar', 
     ];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = []; // opposite of $fillable
 
     /**
      * The attributes that should be hidden for serialization.
