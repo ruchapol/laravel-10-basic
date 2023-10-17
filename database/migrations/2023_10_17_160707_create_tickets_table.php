@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('titile');
+            $table->string('title');
             $table->text('description');
             $table->string('status')->default(TicketStatus::OPEN->value);
             $table->string('attachment')->nullable();
