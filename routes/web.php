@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware('auth')->prefix('ticket')->group( function() {
-    Route::resource('/', TicketController::class);  // will add crud api routes for ticket 
+Route::middleware('auth')->group( function() {
+    Route::resource('/ticket', TicketController::class);  // will add crud api routes for ticket 
 });
 
