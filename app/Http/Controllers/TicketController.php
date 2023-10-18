@@ -33,24 +33,16 @@ class TicketController extends Controller
     */
     public function store(StoreTicketRequest $request)
     {
-
+        
         $ticket = Ticket::create([
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => auth()->id(),
         ]);
-
+        
         if ($request->file('attachment')) {
             
-            $ext = $request->file('attachment')->extension();
-            $contents = file_get_contents($request->file('attachment'));
-            
-            $filename = Str::random(25);
-
-            $path = "attachments/$filename.$ext";
-            Storage::disk('public')->put($path, $contents);
-
-            $ticket->update(['attachment'=>$path]);
+            $this->storeAttachment($request, $ticket);
         }
         
         
@@ -83,17 +75,9 @@ class TicketController extends Controller
         'description'=> $request->description]);
         
         if ($request->file('attachment')) {
-            $path = Storage::disk('public')->delete($ticket->attachment);
-
-            $ext = $request->file('attachment')->extension();
-            $contents = file_get_contents($request->file('attachment'));
+            Storage::disk('public')->delete($ticket->attachment);
             
-            $filename = Str::random(25);
-
-            $path = "attachments/$filename.$ext";
-            Storage::disk('public')->put($path, $contents);
-
-            $ticket->update(['attachment'=>$path]);
+            $this->storeAttachment($request, $ticket);
         }
         
         return redirect(route('ticket.index'));
@@ -106,5 +90,18 @@ class TicketController extends Controller
     {
         $ticket->delete();
         return response()->redirectTo(route('ticket.index'));
+    }
+    
+    protected function storeAttachment($request, $ticket) {
+        
+        $ext = $request->file('attachment')->extension();
+        $contents = file_get_contents($request->file('attachment'));
+        
+        $filename = Str::random(25);
+        
+        $path = "attachments/$filename.$ext";
+        Storage::disk('public')->put($path, $contents);
+        
+        $ticket->update(['attachment'=>$path]);
     }
 }
