@@ -15,7 +15,8 @@ class TicketController extends Controller
     */
     public function index()
     {
-        //
+        $tickets = Ticket::all();
+        return view('ticket.index', compact('tickets'));
     }
     
     /**
@@ -61,7 +62,8 @@ class TicketController extends Controller
     */
     public function show(Ticket $ticket)
     {
-        //
+        return view('ticket.show', ["ticket" => $ticket]);
+        // return view('ticket.show', compact('ticket'));
     }
     
     /**
