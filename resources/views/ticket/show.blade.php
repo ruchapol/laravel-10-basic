@@ -11,8 +11,11 @@
             </div>
 
             <div class="flex">
-                <x-primary-button>Edit</x-primary-button>
+                <a href="{{ route('ticket.edit', $ticket->id) }}">
+                    <x-primary-button>Edit</x-primary-button>
             
+                </a>
+                
                 <form action= {{route('ticket.destroy', $ticket->id)}} method="post">
                     @method('delete')
                     @csrf
