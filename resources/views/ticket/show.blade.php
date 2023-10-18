@@ -11,7 +11,7 @@
             </div>
 
             <div class="flex">
-                <a href="{{ route('ticket.edit', $ticket->id) }}">
+                <a href="{{ route('ticket.edit', $ticket->id) }}" style="margin-right: 16px;">
                     <x-primary-button>Edit</x-primary-button>
             
                 </a>
