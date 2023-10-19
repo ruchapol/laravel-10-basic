@@ -25,10 +25,17 @@
                     </form>
                     
                 </div>
+                @if(auth()->user()->isAdmin)
                 <div class="flex">
-                    <x-primary-button>Approve</x-primary-button>
+                    <form action="{{ route('ticket.update') }}" method="patch">
+                        <x-primary-button>Approve</x-primary-button>
+                    </form>
+                    
                     <x-primary-button class="ml-2">Reject</x-primary-button>
                 </div>
+                @else
+                <p class="text-white">Status: {{ $ticket->status }}</p>
+                @endif
             </div>
             
         </div>
