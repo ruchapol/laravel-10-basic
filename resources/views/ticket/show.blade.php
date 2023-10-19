@@ -22,6 +22,10 @@
                     
                     <x-primary-button >Delete</x-primary-button>
                 </form>
+                <div class="flex">
+                    <x-primary-button>Approve</x-primary-button>
+                    <x-primary-button class="ml-2">Reject</x-primary-button>
+                </div>
             </div>
 
         </div>
