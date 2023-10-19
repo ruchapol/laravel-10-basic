@@ -27,7 +27,10 @@
                 </div>
                 @if(auth()->user()->isAdmin)
                 <div class="flex">
-                    <form action="{{ route('ticket.update') }}" method="patch">
+                    <form action="{{ route('ticket.update', $ticket->id) }}" method="post">
+                        @csrf
+                        @method('patch')
+                        <input type="hidden" name="status" value="resolved"/>
                         <x-primary-button>Approve</x-primary-button>
                     </form>
                     
