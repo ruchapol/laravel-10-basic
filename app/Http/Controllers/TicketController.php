@@ -85,6 +85,7 @@ class TicketController extends Controller
     */
     public function destroy(Ticket $ticket)
     {
-        //
+        $ticket->delete();
+        return redirect(route('ticket.index'));
     }
 }
