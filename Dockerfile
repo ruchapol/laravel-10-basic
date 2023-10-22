@@ -16,9 +16,6 @@ COPY . /var/www/html
 # replace env file with docker.env
 COPY docker.env /var/www/html/.env
 
-# Install Laravel dependencies
-RUN composer install
-
 # Install Node.js and npm
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get install -y \ 
