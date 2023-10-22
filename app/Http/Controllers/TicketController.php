@@ -51,7 +51,7 @@ class TicketController extends Controller
             $ticket->update(['attachment'=>$path]);
         }
         
-        return response()->redirect(route('ticket.index'));
+        return response()->redirectTo(route('ticket.index'));
     }
     
     /**
@@ -59,6 +59,7 @@ class TicketController extends Controller
     */
     public function show(Ticket $ticket)
     {
+
         return view('ticket.show', ["ticket" => $ticket]);
         // return view('ticket.show', compact('ticket'));
     }
@@ -68,17 +69,34 @@ class TicketController extends Controller
     */
     public function edit(Ticket $ticket)
     {
-        //
-    }
+        return view('ticket.edit', compact('ticket'));
+   }
     
     /**
     * Update the specified resource in storage.
     */
     public function update(UpdateTicketRequest $request, Ticket $ticket)
     {
-        dd($request->all());
-        return "";
-    }
+
+        $ticket->update(['title'=> $request->title, 
+        'description'=> $request->description]);
+        
+        if ($request->file('attachment')) {
+            $path = Storage::disk('public')->delete($ticket->attachment);
+            $ext = $request->file('attachment')->extension();   // ex. test1234.txt => .txt
+            $contents = file_get_contents($request->file('attachment'));
+            
+            
+            $filename = Str::random(25);       // "asldifjaoiwejfoisadjfios" random string
+            $path = "attachments/$filename.$ext";  // $path = "attachments/asldifjaoiwejfoisadjfios.txt"
+            
+
+            Storage::disk('public')->put($path, $contents);
+            $ticket->update(['attachment'=>$path]);
+        }
+        
+        return redirect(route('ticket.index'));
+}
     
     /**
     * Remove the specified resource from storage.
