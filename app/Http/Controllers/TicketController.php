@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ticket;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -15,7 +16,10 @@ class TicketController extends Controller
     */
     public function index()
     {
-        $tickets = Ticket::all();
+
+        $user = auth()->user();
+        $tickets = $user->isAdmin ? $tickets = Ticket::all() : $tickets = $user->tickets;
+
         return view('ticket.index', compact('tickets'));
     }
     

@@ -34,7 +34,12 @@
                         <x-primary-button>Approve</x-primary-button>
                     </form>
                     
-                    <x-primary-button class="ml-2">Reject</x-primary-button>
+                    <form action="{{ route('ticket.update', $ticket->id) }}" method="post">
+                      @csrf
+                      @method('patch')
+                      <input type="hidden" name="status" value="rejected"/>
+                      <x-primary-button class="ml-2">Reject</x-primary-button>
+                  </form>
                 </div>
                 @else
                 <p class="text-white">Status: {{ $ticket->status }}</p>
