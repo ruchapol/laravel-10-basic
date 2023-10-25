@@ -19,8 +19,8 @@ class TicketController extends Controller
     {
         
         $user = auth()->user();
-        $tickets = $user->isAdmin ? $tickets = Ticket::all() : $tickets = $user->tickets;
-        
+        $tickets = $user->isAdmin ? $tickets = Ticket::orderByDesc('created_at')->get() : $tickets = $user->tickets;
+
         return view('ticket.index', compact('tickets'));
     }
     
